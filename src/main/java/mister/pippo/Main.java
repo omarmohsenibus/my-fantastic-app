@@ -39,6 +39,14 @@ public class Main {
             os.close();
         });
 
+        server.createContext("/mister", httpExchange -> {
+            final String res = "mister";
+            httpExchange.sendResponseHeaders(200, res.length());
+            final OutputStream os = httpExchange.getResponseBody();
+            os.write(res.getBytes(StandardCharsets.UTF_8));
+            os.close();
+        });
+
         server.createContext("/date", httpExchange -> {
             final String now = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
             httpExchange.sendResponseHeaders(200, now.length());
